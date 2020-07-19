@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="BetterGameEngine">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/out/artifacts/BetterGameEngine_jar/BetterGameEngine.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

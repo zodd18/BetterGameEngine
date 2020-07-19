@@ -24,6 +24,8 @@ public class BEGame extends Game {
         } catch (SceneException e) {
             e.printStackTrace();
         }
+
+        getSettings().getBooleanSetting("SHOW FPS").enable();
     }
 
     @Override
@@ -34,7 +36,6 @@ public class BEGame extends Game {
     @Override
     public void render(Graphics2D g) {
         getSceneManager().render(g);
-        getScreen().refresh();
     }
 
     @Override

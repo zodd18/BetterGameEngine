@@ -1,4 +1,4 @@
-package game.gcomponents;
+package model.builtInGComponents;
 
 import model.Game;
 import model.components.GComponent;

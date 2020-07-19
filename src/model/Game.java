@@ -2,6 +2,10 @@ package model;
 
 import model.adapters.GKeyboardAdapter;
 import model.adapters.GMouseAdapter;
+import model.builtInGComponents.FPS;
+import model.settings.GBSetting;
+import model.settings.GSettings;
+import model.settings.Settings;
 import model.uri.URI;
 import model.scenes.SceneManager;
 import model.utils.GLog;
@@ -18,6 +22,8 @@ public abstract class Game extends Thread implements URI {
     private static GStateTable gameState;
     private static SceneManager sm;
 
+    private static GSettings settings;
+
     public Game(Screen s, GMouseAdapter mouse, GKeyboardAdapter keyboard) {
         Game.s = s;
         this.mouse = mouse;
@@ -25,6 +31,9 @@ public abstract class Game extends Thread implements URI {
 
         gameState = new GStateTable();
         sm = new SceneManager();
+
+        settings = new Settings();
+        settings.addSetting(new GBSetting("SHOW FPS"));
     }
 
     @Override
@@ -75,10 +84,14 @@ public abstract class Game extends Thread implements URI {
             if (now - lastUpdateTime > gameState.getTBU()) {
                 lastUpdateTime = now - gameState.getTBU();
             }
+            
+            beforeRoutine();
 
             input(mouse, keyboard);
             update();
             render(s.getGraphics());
+            
+            afterRoutine();
 
             lastRenderTime = now;
             frameCount++;
@@ -106,6 +119,17 @@ public abstract class Game extends Thread implements URI {
         }
     }
 
+    private void beforeRoutine() {
+
+    }
+
+    private void afterRoutine() {
+        if (settings.getBooleanSetting("SHOW FPS").getCurrentValue()) {
+            new FPS().render(getScreen().getGraphics());
+        }
+
+        getScreen().refresh();
+    }
 
     public static Screen getScreen() {
         return s;
@@ -117,6 +141,10 @@ public abstract class Game extends Thread implements URI {
 
     public static SceneManager getSceneManager() {
         return sm;
+    }
+
+    public static GSettings getSettings() {
+        return settings;
     }
 }
 
