@@ -2,7 +2,7 @@ package model.scenes;
 
 import model.adapters.GKeyboardAdapter;
 import model.adapters.GMouseAdapter;
-import model.uri.URI;
+import model.generalInterfaces.uri.URI;
 import model.utils.GLog;
 
 import java.awt.*;
@@ -76,7 +76,7 @@ public class SceneManager implements URI, Map<String, Scene>, Serializable {
         return currentScene;
     }
 
-    public void setCurrentScene(String sceneName) throws SceneException {
+    public void changeScene(String sceneName) throws SceneException {
         if (scenes.get(sceneName) == null)
             throw new SceneException(String.format("unknown scene: \"%s\"", sceneName));
         else
@@ -132,6 +132,7 @@ public class SceneManager implements URI, Map<String, Scene>, Serializable {
 
     @Override
     public Scene put(String key, Scene value) {
+        value.setName(key);
         return scenes.put(key, value);
     }
 

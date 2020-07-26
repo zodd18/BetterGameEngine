@@ -6,7 +6,7 @@ import model.builtInGComponents.FPS;
 import model.settings.GBSetting;
 import model.settings.GSettings;
 import model.settings.Settings;
-import model.uri.URI;
+import model.generalInterfaces.uri.URI;
 import model.scenes.SceneManager;
 import model.utils.GLog;
 import view.Screen;
@@ -124,7 +124,7 @@ public abstract class Game extends Thread implements URI {
     }
 
     private void afterRoutine() {
-        if (settings.getBooleanSetting("SHOW FPS").getCurrentValue()) {
+        if (settings.getBooleanSetting("SHOW FPS").value()) {
             new FPS().render(getScreen().getGraphics());
         }
 

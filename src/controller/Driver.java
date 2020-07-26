@@ -7,9 +7,12 @@ import view.Screen;
 import javax.swing.*;
 
 public class Driver {
-    public Driver(int width, int height) {
+    // resolution = size of JFrame
+    // width/height = virtual size
+
+    public Driver(int resolutionWidth, int resolutionHeight, int width, int height) {
         SwingUtilities.invokeLater(() -> {
-            Screen s = new GPanel(width, height);
+            Screen s = new GPanel(resolutionWidth, resolutionHeight, width, height);
             GFrame gameFrame = new GFrame((JPanel) s);
             new GController(gameFrame);
         });

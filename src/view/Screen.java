@@ -19,7 +19,11 @@ public interface Screen {
 
     int getWidth();
 
+    int getRealWidth();
+
     int getHeight();
+
+    int getRealHeight();
 
     void addMouseListener(GMouseAdapter gMouseAdapter);
 

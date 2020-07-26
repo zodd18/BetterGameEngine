@@ -1,12 +1,13 @@
 package game;
 
-import game.gcomponents.Player;
 import game.scenes.Scene0;
 import model.Game;
 import model.adapters.GKeyboardAdapter;
 import model.adapters.GMouseAdapter;
 import model.scenes.Scene;
 import model.scenes.SceneException;
+import model.settings.GSetting;
+import model.utils.GLog;
 import view.Screen;
 
 import java.awt.*;
@@ -20,11 +21,12 @@ public class BEGame extends Game {
         getSceneManager().put("SCENE0", s0);
 
         try {
-            getSceneManager().setCurrentScene("SCENE0");
+            getSceneManager().changeScene("SCENE0");
         } catch (SceneException e) {
             e.printStackTrace();
         }
 
+        GLog.setSelectedLevel(GLog.ALL);
         getSettings().getBooleanSetting("SHOW FPS").enable();
     }
 

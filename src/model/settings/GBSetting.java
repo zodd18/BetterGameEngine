@@ -22,7 +22,7 @@ public class GBSetting extends GSetting<Boolean> implements BooleanSetting {
     }
 
     @Override
-    public Boolean getCurrentValue() {
-        return super.getCurrentValue();
+    public Boolean value() {
+        return super.value();
     }
 }

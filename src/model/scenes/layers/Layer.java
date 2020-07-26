@@ -3,13 +3,14 @@ package model.scenes.layers;
 import model.adapters.GKeyboardAdapter;
 import model.adapters.GMouseAdapter;
 import model.components.GComponent;
+import model.generalInterfaces.Named;
 import model.scenes.Scene;
-import model.uri.URI;
+import model.generalInterfaces.uri.URI;
 
 import java.awt.*;
 import java.util.LinkedList;
 
-public class Layer implements URI {
+public class Layer implements URI, Named {
 
     private Scene parent;
 
@@ -17,6 +18,7 @@ public class Layer implements URI {
 
     private LinkedList<GComponent> waitingGComponents;
     private LinkedList<GComponent> destroyingGComponents;
+    private String name;
 
     public Layer() {
         this.gComponents = new LinkedList<>();
@@ -26,29 +28,42 @@ public class Layer implements URI {
 
     @Override
     public void update() {
-        gComponents.forEach(GComponent::update);
+        gComponents.forEach(gc -> { if (gc.canUpdate()) gc.update(); });
+        extraRoutine();
+    }
 
+    @Override
+    public void render(Graphics2D g) {
+        gComponents.forEach(gc -> { if (gc.canRender()) gc.render(g); });
+        extraRoutine();
+    }
+
+    @Override
+    public void input(GMouseAdapter m, GKeyboardAdapter k) {
+        gComponents.forEach(gc -> { if (gc.canInput()) gc.input(m, k); });
+        extraRoutine();
+    }
+
+    private void extraRoutine() {
+        recollection();
+        destruction();
+    }
+
+    private void recollection() {
         // Adding internally spawned gComponents
         waitingGComponents.forEach(gc -> addGComponent(gc));
         waitingGComponents.clear();
+    }
 
+    private void destruction() {
         // Removing gComponents ready for destruction
         destroyingGComponents.forEach(gc -> gComponents.remove(gc));
         destroyingGComponents.clear();
     }
 
-    @Override
-    public void render(Graphics2D g) {
-        gComponents.forEach(gc -> gc.render(g));
-    }
-
-    @Override
-    public void input(GMouseAdapter m, GKeyboardAdapter k) {
-        gComponents.forEach(gc -> gc.input(m, k));
-    }
-
     public boolean addGComponent(GComponent gc) {
-        gc.setParent(this);
+        gc.setParentLayer(this);
+        gc.additionRoutine();
         return gComponents.add(gc);
     }
 
@@ -64,11 +79,25 @@ public class Layer implements URI {
         return gComponents.remove(gc);
     }
 
-    public Scene getParent() {
+    public Scene getParentScene() {
         return parent;
     }
 
     public void setParent(Scene parent) {
         this.parent = parent;
+    }
+
+    public LinkedList<GComponent> getComponents() {
+        return gComponents;
+    }
+
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String getName() {
+        return name;
     }
 }

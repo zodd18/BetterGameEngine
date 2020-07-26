@@ -4,6 +4,6 @@ import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
-        new Driver(800, 600);
+        new Driver(600, 400, 600, 400);
     }
 }

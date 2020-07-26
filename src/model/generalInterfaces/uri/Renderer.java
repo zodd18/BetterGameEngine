@@ -1,4 +1,4 @@
-package model.uri;
+package model.generalInterfaces.uri;
 
 import java.awt.*;
 

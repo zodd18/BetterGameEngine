@@ -4,7 +4,7 @@ import game.BEGame;
 import model.Game;
 import model.adapters.GKeyboardAdapter;
 import model.adapters.GMouseAdapter;
-import model.uri.Renderer;
+import model.generalInterfaces.uri.Renderer;
 import model.utils.GLog;
 import model.utils.GraphicsUtil;
 import view.GFrame;
@@ -49,5 +49,7 @@ public class GController implements Renderer {
 
         g.setColor(Color.WHITE);
         GraphicsUtil.drawCenteredString(g, "Oops... Something went wrong... :(", new Rectangle(345, 275, 100, 20), new Font("Arial", Font.PLAIN, 32));
+
+        s.refresh();
     }
 }

@@ -1,4 +1,4 @@
-package model.uri;
+package model.generalInterfaces.uri;
 
 import model.adapters.GKeyboardAdapter;
 import model.adapters.GMouseAdapter;

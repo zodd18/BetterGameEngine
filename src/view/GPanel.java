@@ -2,6 +2,8 @@ package view;
 
 import model.adapters.GKeyboardAdapter;
 import model.adapters.GMouseAdapter;
+import model.utils.GLog;
+import model.utils.GraphicsUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,24 +11,34 @@ import java.awt.image.BufferedImage;
 
 public class GPanel extends JPanel implements Screen {
 
-    private int WIDTH, HEIGHT;
+    private final int resolutionWidth;
+    private final int resolutionHeight;
+
+    private int WIDTH;
+    private int HEIGHT;
 
     private JLabel imgLabel;
-    private BufferedImage img;
-    private Graphics2D graphics;
+    private BufferedImage realImg, img;
+    private Graphics2D realGraphics, graphics;
 
-    public GPanel(int width, int height) {
-        super(new BorderLayout());
+    public GPanel(int realWidth, int realHeight, int width, int height) {
+        setLayout(new BorderLayout());
+
+        this.resolutionWidth = realWidth;
+        this.resolutionHeight = realHeight;
 
         this.WIDTH = width;
         this.HEIGHT = height;
 
         img = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_ARGB);
+        realImg = new BufferedImage(realWidth, realHeight, BufferedImage.TYPE_INT_ARGB);
+
+        realGraphics = (Graphics2D) realImg.getGraphics();
         graphics = (Graphics2D) img.getGraphics();
 
         imgLabel = new JLabel();
-        imgLabel.setIcon(new ImageIcon(img));
-        imgLabel.setSize(img.getWidth(), img.getHeight());
+        imgLabel.setIcon(new ImageIcon(realImg));
+        imgLabel.setSize(realWidth, realHeight);
 
         add(imgLabel);
         setSize(imgLabel.getSize());
@@ -34,6 +46,8 @@ public class GPanel extends JPanel implements Screen {
 
     @Override
     public void refresh() {
+        realGraphics.drawImage(img, 0, 0, getRealWidth(), getRealHeight(), null);
+
         Component p = getParent();
         if (p != null) p.repaint();
     }
@@ -59,8 +73,18 @@ public class GPanel extends JPanel implements Screen {
     }
 
     @Override
+    public int getRealWidth() {
+        return resolutionWidth;
+    }
+
+    @Override
     public int getHeight() {
         return HEIGHT;
+    }
+
+    @Override
+    public int getRealHeight() {
+        return resolutionHeight;
     }
 
     @Override
@@ -79,6 +103,5 @@ public class GPanel extends JPanel implements Screen {
 
         super.setFocusable(true);
         super.requestFocus();
-//        super.grabFocus();
     }
 }

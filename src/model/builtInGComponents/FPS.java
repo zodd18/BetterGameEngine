@@ -12,9 +12,9 @@ public class FPS extends GComponent {
     public void render(Graphics2D g) {
         super.render(g);
 
-        g.setFont(new Font("Fira Code", Font.PLAIN, 12));
+        g.setFont(new Font("Arial", Font.PLAIN, 12));
 
         g.setColor(Color.WHITE);
-        GraphicsUtil.drawCenteredString(g, String.format("FPS: %d", Game.getGameState().getFPS()), new Rectangle(0, 0, 55, 20), new Font("Fira Code", Font.PLAIN, 12));
+        GraphicsUtil.drawCenteredString(g, String.format("FPS: %d", Game.getGameState().getFPS()), new Rectangle(0, 5, 55, 20), g.getFont());
     }
 }

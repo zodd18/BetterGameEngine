@@ -6,5 +6,5 @@ public interface BooleanSetting {
 
     void disable();
 
-    Boolean getCurrentValue();
+    Boolean value();
 }

@@ -1,6 +1,6 @@
 package model.utils;
 
-import model.uri.Updater;
+import model.generalInterfaces.uri.Updater;
 
 public class Hourglass implements Updater {
 
@@ -41,6 +41,7 @@ public class Hourglass implements Updater {
     }
 
     public void reset() {
+        resume();
         currentTime = initialTime;
     }
 
@@ -50,6 +51,10 @@ public class Hourglass implements Updater {
 
     public int getInitialTime() {
         return initialTime;
+    }
+
+    public void setRemainingTime(int time) {
+        this.currentTime = time;
     }
 
     public void setSpeed(int speed) {

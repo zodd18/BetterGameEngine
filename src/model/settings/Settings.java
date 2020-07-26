@@ -22,7 +22,12 @@ public class Settings extends HashMap<String, GSetting> implements GSettings {
 
     @Override
     public void addSetting(GSetting s) {
-        put(s.getSettingName(), s);
+        put(s.getName(), s);
+    }
+
+    @Override
+    public void addSetting(Object key, Object value) {
+        addSetting(new GSetting(key, value));
     }
 
     @Override
@@ -44,6 +49,11 @@ public class Settings extends HashMap<String, GSetting> implements GSettings {
             if (s instanceof BooleanSetting)
                 ((BooleanSetting) s).disable();
         }
+    }
+
+    @Override
+    public GSetting get(Object o) {
+        return get(o.toString());
     }
 
     @Override

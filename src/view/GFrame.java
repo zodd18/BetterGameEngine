@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class GFrame extends JFrame {
 
-    private JPanel mainPanel;
+    private JPanel  mainPanel;
 
     public GFrame() {
         setTitle("BetterEngine");
