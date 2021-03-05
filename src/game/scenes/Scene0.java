@@ -28,7 +28,6 @@ public class Scene0 extends Scene {
         addLayer("ENEMIES");
         addLayer("COLLISIONS");
         addLayer("UI");
-
         get("BACKGROUND").addGComponent(new Background());
         get("PLAYER").addGComponent(new Player(300, 300, 32, 32, 3));
     }
