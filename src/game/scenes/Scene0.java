@@ -8,6 +8,7 @@ import game.gcomponents.Player;
 import model.adapters.GKeyboardAdapter;
 import model.adapters.GMouseAdapter;
 import model.scenes.Scene;
+import model.sound.Sound;
 import model.utils.Hourglass;
 import model.utils.RandomUtil;
 
@@ -30,6 +31,9 @@ public class Scene0 extends Scene {
         addLayer("UI");
         get("BACKGROUND").addGComponent(new Background());
         get("PLAYER").addGComponent(new Player(300, 300, 32, 32, 3));
+
+        Sound aot = new Sound("game/resources/sounds/aot.wav");
+        aot.loop();
     }
 
     @Override
